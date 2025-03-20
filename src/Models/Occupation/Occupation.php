@@ -1,8 +1,8 @@
 <?php
 
-namespace Zahzah\ModuleProfession\Models\Occupation;
+namespace Hanafalah\ModuleProfession\Models\Occupation;
 
-use Zahzah\ModuleProfession\{
+use Hanafalah\ModuleProfession\{
     Models\Profession\Profession,
     Enums\Profession\Flag
 };
@@ -11,14 +11,16 @@ class Occupation extends Profession
 {
     protected $table = 'professions';
 
-    protected static function booting(): void{
+    protected static function booting(): void
+    {
         static::setFlags(Flag::OCCUPATION->value);
     }
 
-    protected static function booted(): void{
+    protected static function booted(): void
+    {
         parent::booted();
 
-        static::creating(function($query){
+        static::creating(function ($query) {
             if (!isset($query->flag)) $query->flag = Flag::OCCUPATION->value;
         });
     }

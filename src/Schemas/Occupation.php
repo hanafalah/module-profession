@@ -1,14 +1,14 @@
 <?php
 
-namespace Zahzah\ModuleProfession\Schemas;
+namespace Hanafalah\ModuleProfession\Schemas;
 
-use Zahzah\ModuleProfession\Contracts\Occupation as ContractsOccupation;
+use Hanafalah\ModuleProfession\Contracts\Occupation as ContractsOccupation;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Zahzah\ModuleProfession\Enums\Profession\Flag;
-use Zahzah\ModuleProfession\Resources\Occupation\ShowOccupation;
-use Zahzah\ModuleProfession\Resources\Occupation\ViewOccupation;
+use Hanafalah\ModuleProfession\Enums\Profession\Flag;
+use Hanafalah\ModuleProfession\Resources\Occupation\ShowOccupation;
+use Hanafalah\ModuleProfession\Resources\Occupation\ViewOccupation;
 
 class Occupation extends Profession implements ContractsOccupation
 {
@@ -23,49 +23,54 @@ class Occupation extends Profession implements ContractsOccupation
     protected array $__cache = [
         'index' => [
             'name'     => 'occupation',
-            'tags'     => ['occupation','occupation-index'],
+            'tags'     => ['occupation', 'occupation-index'],
             'forever'  => true
         ]
     ];
 
-    public function getOccupation(): mixed{
+    public function getOccupation(): mixed
+    {
         return static::$occupation_model;
     }
 
-    public function showUsingRelation(): array{
+    public function showUsingRelation(): array
+    {
         return [];
     }
 
-    public function prepareShowOccupation(? Model $model = null, ? array $attributes = null): Model{
+    public function prepareShowOccupation(?Model $model = null, ?array $attributes = null): Model
+    {
         $attributes ??= request()->all();
 
         $model ??= $this->getOccupation();
-        if (!isset($model)){
+        if (!isset($model)) {
             $id    = $attributes['id'] ?? null;
             if (!isset($id)) throw new \Exception('No occupation id provided', 422);
 
             $model = $this->occupation()->with($this->showUsingRelation())->findOrFail($attributes['id']);
-        }else{
+        } else {
             $model->load($this->showUsingRelation());
         }
 
         return static::$occupation_model = $model;
     }
 
-    public function showOccupation(? Model $model = null): array{
-        return $this->transforming($this->__resources['show'],function() use ($model){
+    public function showOccupation(?Model $model = null): array
+    {
+        return $this->transforming($this->__resources['show'], function () use ($model) {
             return $this->prepareShowOccupation($model);
         });
     }
 
-    public function prepareStoreOccupation(? array $attributes = null): Model{
+    public function prepareStoreOccupation(?array $attributes = null): Model
+    {
         $attributes ??= request()->all();
 
         if (!isset($attributes['name'])) throw  new \Exception('name is required');
 
         $model = $this->OccupationModel()->updateOrCreate([
             'id' => $attributes['id'] ?? null
-        ],[
+        ], [
             'name' => $attributes['name'],
             'flag' => $attributes['flag'] ?? Flag::OCCUPATION->value
         ]);
@@ -73,28 +78,32 @@ class Occupation extends Profession implements ContractsOccupation
         $this->forgetTags('occupation');
         return static::$occupation_model = $model;
     }
-    
-    public function storeOccupation(): array{
-        return $this->transaction(function(){
+
+    public function storeOccupation(): array
+    {
+        return $this->transaction(function () {
             return $this->showOccupation($this->prepareStoreOccupation());
         });
     }
 
-    public function prepareViewOccupationList(? array $attributes = null): Collection{
+    public function prepareViewOccupationList(?array $attributes = null): Collection
+    {
         $attributes ??= request()->all();
-        
-        return static::$occupation_model = $this->cacheWhen(!$this->isSearch(),$this->__cache['index'],function(){
+
+        return static::$occupation_model = $this->cacheWhen(!$this->isSearch(), $this->__cache['index'], function () {
             return $this->occupation()->get();
         });
     }
 
-    public function viewOccupationList(): array{
-        return $this->transforming($this->__resources['view'],function(){
+    public function viewOccupationList(): array
+    {
+        return $this->transforming($this->__resources['view'], function () {
             return $this->prepareViewOccupationList();
         });
     }
 
-    public function prepareDeleteOccupation(? array $attributes = null): bool{
+    public function prepareDeleteOccupation(?array $attributes = null): bool
+    {
         $attributes ??= request()->all();
 
         if (!isset($attributes['id'])) throw new \Exception('No occupation id provided', 422);
@@ -103,14 +112,16 @@ class Occupation extends Profession implements ContractsOccupation
         return $result;
     }
 
-    public function deleteOccupation(): bool{
-        return $this->transaction(function(){
+    public function deleteOccupation(): bool
+    {
+        return $this->transaction(function () {
             return $this->prepareDeleteOccupation();
         });
     }
 
-    public function occupation(mixed $conditionals = null): Builder{
+    public function occupation(mixed $conditionals = null): Builder
+    {
         $this->booting();
-        return $this->OccupationModel()->withParameters()->conditionals($conditionals)->orderBy('name','asc');
+        return $this->OccupationModel()->withParameters()->conditionals($conditionals)->orderBy('name', 'asc');
     }
 }

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Zahzah\ModuleProfession;
+namespace Hanafalah\ModuleProfession;
 
-use Zahzah\LaravelSupport\Providers\BaseServiceProvider;
+use Hanafalah\LaravelSupport\Providers\BaseServiceProvider;
 
 class ModuleProfessionServiceProvider extends BaseServiceProvider
 {
@@ -16,9 +16,10 @@ class ModuleProfessionServiceProvider extends BaseServiceProvider
     public function register()
     {
         $this->registerMainClass(ModuleProfession::class)
-             ->registerCommandService(Providers\CommandServiceProvider::class)
-             ->registers([
-                '*','Services' => function(){
+            ->registerCommandService(Providers\CommandServiceProvider::class)
+            ->registers([
+                '*',
+                'Services' => function () {
                     $this->binds([
                         Contracts\ModuleProfession::class => new ModuleProfession,
                         Contracts\Profession::class => new Schemas\Profession,
@@ -33,11 +34,13 @@ class ModuleProfessionServiceProvider extends BaseServiceProvider
      *
      * @return string
      */
-    protected function dir(): string{
-        return __DIR__.'/';
+    protected function dir(): string
+    {
+        return __DIR__ . '/';
     }
 
-    protected function migrationPath(string $path = ''): string{
+    protected function migrationPath(string $path = ''): string
+    {
         return database_path($path);
     }
 }

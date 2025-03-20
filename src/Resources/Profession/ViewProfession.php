@@ -1,8 +1,8 @@
 <?php
 
-namespace Zahzah\ModuleProfession\Resources\Profession;
+namespace Hanafalah\ModuleProfession\Resources\Profession;
 
-use Zahzah\LaravelSupport\Resources\ApiResource;
+use Hanafalah\LaravelSupport\Resources\ApiResource;
 
 class ViewProfession extends ApiResource
 {
@@ -12,21 +12,20 @@ class ViewProfession extends ApiResource
             'id'        => $this->id,
             'parent_id' => $this->parent_id,
             'name'      => $this->name,
-            'childs' => $this->relationValidation('childs',function(){
+            'childs' => $this->relationValidation('childs', function () {
                 $childs = $this->childs;
-                return $childs->transform(function($child){
+                return $childs->transform(function ($child) {
                     return new ShowProfession($child);
                 });
             }),
-            'tariff_components' => $this->relationValidation('tariffComponents',function(){
+            'tariff_components' => $this->relationValidation('tariffComponents', function () {
                 $tariffComponents = $this->tariffComponents;
-                return $tariffComponents->transform(function($tariffComponent){
+                return $tariffComponents->transform(function ($tariffComponent) {
                     return $tariffComponent->toViewApi();
                 });
             })
         ];
-        
+
         return $arr;
     }
 }
-

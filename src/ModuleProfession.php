@@ -1,9 +1,7 @@
 <?php
 
-namespace Zahzah\ModuleProfession;
+namespace Hanafalah\ModuleProfession;
 
-use Zahzah\ModuleProfession\Supports\BaseModuleProfession;
+use Hanafalah\ModuleProfession\Supports\BaseModuleProfession;
 
-class ModuleProfession extends BaseModuleProfession{
-    
-}
+class ModuleProfession extends BaseModuleProfession {}

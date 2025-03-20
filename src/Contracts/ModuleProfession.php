@@ -1,9 +1,7 @@
 <?php
 
-namespace Zahzah\ModuleProfession\Contracts;
+namespace Hanafalah\ModuleProfession\Contracts;
 
-use Zahzah\LaravelSupport\Contracts\DataManagement;
+use Hanafalah\LaravelSupport\Contracts\DataManagement;
 
-interface ModuleProfession extends DataManagement
-{
-}
+interface ModuleProfession extends DataManagement {}

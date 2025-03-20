@@ -1,18 +1,21 @@
 <?php
 
-namespace Zahzah\ModuleProfession\Concerns\Relation;
+namespace Hanafalah\ModuleProfession\Concerns\Relation;
 
-trait HasProfession {
+trait HasProfession
+{
     protected $__foreign_key = 'profession_id';
 
-    public function initializeHasProfession(){
+    public function initializeHasProfession()
+    {
         $this->mergeFillable([
             $this->__foreign_key
         ]);
     }
 
     //EIGER SECTION
-    public function profession(){
+    public function profession()
+    {
         return $this->belongsToModel('Profession');
     }
 }

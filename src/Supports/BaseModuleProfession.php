@@ -1,11 +1,12 @@
 <?php
 
-namespace Zahzah\ModuleProfession\Supports;
+namespace Hanafalah\ModuleProfession\Supports;
 
-use Zahzah\LaravelSupport\Supports\PackageManagement;
-use Zahzah\ModuleProfession\Contracts\ModuleProfession;
+use Hanafalah\LaravelSupport\Supports\PackageManagement;
+use Hanafalah\ModuleProfession\Contracts\ModuleProfession;
 
-class BaseModuleProfession extends PackageManagement implements ModuleProfession{
+class BaseModuleProfession extends PackageManagement implements ModuleProfession
+{
     /** @var array */
     protected $__module_profession_config = [];
 
@@ -16,7 +17,8 @@ class BaseModuleProfession extends PackageManagement implements ModuleProfession
      * @throws Exception description of exception
      * @return void
      */
-    public function __construct(){
-        $this->setConfig('module-profession',$this->__module_profession_config);
-    }    
-}   
+    public function __construct()
+    {
+        $this->setConfig('module-profession', $this->__module_profession_config);
+    }
+}

@@ -1,8 +1,9 @@
-<?php 
+<?php
 
-use Zahzah\ModuleProfession\{
+use Hanafalah\ModuleProfession\{
     Commands as ModuleProfessionCommands,
-    Models, Contracts
+    Models,
+    Contracts
 };
 
 return [

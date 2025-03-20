@@ -1,8 +1,8 @@
 <?php
 
-namespace Zahzah\ModuleProfession\Resources\Occupation;
+namespace Hanafalah\ModuleProfession\Resources\Occupation;
 
-use Zahzah\ModuleProfession\Resources\Profession\ShowProfession;
+use Hanafalah\ModuleProfession\Resources\Profession\ShowProfession;
 
 class ShowOccupation extends ShowProfession
 {
