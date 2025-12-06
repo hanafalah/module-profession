@@ -2,28 +2,16 @@
 
 namespace Hanafalah\ModuleProfession\Models\Profession;
 
-use Hanafalah\LaravelSupport\Models\BaseModel;
-use Hanafalah\ModuleProfession\Enums\Profession\Flag;
-use Hanafalah\ModuleTransaction\Concerns\HasPriceComponent;
+use Hanafalah\LaravelSupport\Models\Unicode\Unicode;
+use Hanafalah\ModuleProfession\Resources\Profession\{
+    ShowProfession, ViewProfession
+};
 
-class Profession extends BaseModel
+class Profession extends Unicode
 {
-    use HasPriceComponent;
+    protected $table = 'unicodes';
 
-    public $timestamps  = false;
-    protected $fillable = ['id', 'parent_id', 'flag', 'name'];
-    protected static array $__flags = [];
-
-    protected static function booting(): void
-    {
-        static::setFlags(Flag::PROFESSION->value);
-    }
-
-    protected static function booted(): void
-    {
-        parent::booted();
-        static::addGlobalScope('flag', function ($query) {
-            $query->flagIn(static::$__flags);
-        });
-    }
+    // public function childs(){
+    //     return $this->hasManyModel($this->getMorphClass(), static::getParentId())->withoutGlobalScopes()->with(['childs']);
+    // }
 }

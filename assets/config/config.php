@@ -2,23 +2,28 @@
 
 use Hanafalah\ModuleProfession\{
     Commands as ModuleProfessionCommands,
-    Models,
-    Contracts
 };
 
 return [
     'commands' => [
         ModuleProfessionCommands\InstallMakeCommand::class
     ],
-    'contracts' => [
-        'occupation'  => Contracts\Occupation::class,
-        'profession'  => Contracts\Profession::class,
-        'module_profession' => Contracts\ModuleProfession::class
+    'app' => [
+        'contracts' => [
+            //ADD YOUR CONTRACTS HERE
+        ],
+    ],
+    'libs' => [
+        'model' => 'Models',
+        'contract' => 'Contracts',
+        'schema' => 'Schemas',
+        'database' => 'Database',
+        'data' => 'Data',
+        'resource' => 'Resources',
+        'migration' => '../assets/database/migrations'
     ],
     'database' => [
         'models' => [
-            'Profession' => Models\Profession\Profession::class,
-            'Occupation' => Models\Occupation\Occupation::class
         ]
     ]
 ];
